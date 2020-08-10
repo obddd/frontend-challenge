@@ -5,7 +5,7 @@ export const fetchRepos = async pageNumber => {
     .toISOString()
     .split("T")[0];
   try {
-    const { data } = await axios({
+    let {data: {items}} = await axios({
       method: "GET",
       url: "https://api.github.com/search/repositories",
       params: {
@@ -15,7 +15,7 @@ export const fetchRepos = async pageNumber => {
         page: pageNumber
       }
     });
-    console.log(data);
+    return items;
   } catch (error) {
     console.log(error);
   }
