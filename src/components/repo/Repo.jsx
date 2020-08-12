@@ -1,6 +1,6 @@
-import React from "react";
-import GitHubButton from "react-github-btn";
-import "./Repo.css";
+import React from 'react';
+import GitHubButton from '../githubButton/GithubButton';
+import './Repo.css';
 
 const Repo = ({ data }) => {
   const {
@@ -8,10 +8,13 @@ const Repo = ({ data }) => {
     created_at,
     description,
     html_url,
-    owner: { avatar_url, login }
+    stargazers_count,
+    open_issues,
+    owner: { avatar_url, login },
   } = data;
+
   const daysAgo = Math.abs(
-    30 - created_at.split("T")[0].split("-")[2] + new Date().getDate()
+    30 - created_at.split('T')[0].split('-')[2] + new Date().getDate()
   );
 
   return (
@@ -24,23 +27,17 @@ const Repo = ({ data }) => {
         <span>{description}</span>
         <div className="info">
           <GitHubButton
-            href={html_url}
-            data-icon="octicon-star"
-            data-size="large"
-            data-show-count="true"
-            aria-label="Star ntkme/github-buttons on GitHub"
-          >
-            Star
-          </GitHubButton>
+            type="Stars"
+            icon="fa fa-star-o"
+            count={stargazers_count}
+            link={html_url}
+          />
           <GitHubButton
-            href={`${html_url}/issues`}
-            data-icon="octicon-issue-opened"
-            data-size="large"
-            data-show-count="true"
-            aria-label="Issue ntkme/github-buttons on GitHub"
-          >
-            Issue
-          </GitHubButton>
+            type="Issues"
+            icon="fa fa-exclamation-circle"
+            count={open_issues}
+            link={`${html_url}/issues`}
+          />
           <span>
             Submitted {daysAgo} days ago by {login}
           </span>
